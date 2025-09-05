@@ -1,0 +1,32 @@
+POST-CREATE-MOVIE-INFO
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos -Method Post -Body '{"movieInfoId":1, "name": "Batman Begins", "year":2005,"cast":["Christian Bale", "Michael Cane"],"release_date": "2005-06-15"}' -ContentType "application/json"
+
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos -Method Post -Body '{"movieInfoId":2, "name": "The Dark Knight", "year":2008,"cast":["Christian Bale", "HeathLedger"],"release_date": "2008-07-18"}' -ContentType "application/json"
+
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos -Method Post -Body '{"movieInfoId":null, "name": "Dark Knight Rises", "year":2012,"cast":["Christian Bale", "Tom Hardy"],"release_date": "2012-07-20"}' -ContentType "application/json"
+
+
+GET-ALL-MOVIE-INFO
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos -Method Get
+
+GET-MOVIE-INFO-BY-ID
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos/1 -Method Get
+
+GET-MOVIE-INFO-STREAM
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos/stream -Method Get
+
+UPDATE-MOVIE-INFO
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos/1 -Method Put -Body '{"movieInfoId":1, "name": "Batman Begins", "year":2005,"cast":["Christian Bale", "Michael Cane", "Liam Neeson"],"release_date": "2005-06-15"}' -ContentType "application/json"
+
+DELETE-MOVIE-INFO
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos/1 -Method Delete
+
+STREAM-MOVIE-INFO
+-----------------------
+Invoke-RestMethod -Uri http://localhost:8080/v1/movieinfos/stream -Method Get
