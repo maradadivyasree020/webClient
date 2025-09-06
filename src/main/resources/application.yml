@@ -34,3 +34,9 @@ spring:
       host: localhost
       port: 27017
       database: local
+
+logging:
+  level:
+    root: DEBUG
+    "org.springframework.web": DEBUG
+    "org.springframework.test.web.reactive.server": DEBUG
