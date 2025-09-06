@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import webClient.domain.MovieInfo;
 import webClient.repository.MovieInfoRepository;
@@ -110,6 +111,37 @@ public class MoviesInfoControllerIntgTest {
                      .isNotFound();
     }
    
+    @Test
+    void getMovieInfoByYear(){
+        var uri = UriComponentsBuilder.fromUriString(MOVIEs_INFO_URL)
+                                      .queryParam("year", 2005)
+                                      .buildAndExpand()
+                                      .toUri();
+        webTestClient.get()
+                     .uri(uri)
+                     .exchange()
+                     .expectStatus()
+                     .is2xxSuccessful()
+                     .expectBodyList(MovieInfo.class)
+                     .hasSize(1);
+    }
+
+    @Test
+    void getMovieInfoByName(){
+        var uri = UriComponentsBuilder.fromUriString(MOVIEs_INFO_URL)
+                                      .queryParam("name", "Batman Begins")
+                                      .buildAndExpand()
+                                      .toUri();
+        webTestClient.get()
+                     .uri(uri)
+                     .exchange()
+                     .expectStatus()
+                     .is2xxSuccessful()
+                     .expectBodyList(MovieInfo.class)
+                     .hasSize(1);
+
+    }
+
     @Test
     void updatedMovieInfo(){
         var movieInfoId="abc";

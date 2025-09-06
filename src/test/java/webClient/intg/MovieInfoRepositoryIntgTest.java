@@ -61,6 +61,22 @@ public class MovieInfoRepositoryIntgTest {
     }
 
     @Test
+    void findByYear(){
+        var moviesInfoFlux=movieInfoRepository.findByYear(2005).log();
+        StepVerifier.create(moviesInfoFlux)
+                    .expectNextCount(1)
+                    .verifyComplete();        
+    }
+
+     @Test
+    void findByName(){
+        var moviesInfoFlux=movieInfoRepository.findByName("Dark Knight Rises").log();
+        StepVerifier.create(moviesInfoFlux)
+                    .expectNextCount(1)
+                    .verifyComplete();        
+    }
+
+    @Test
     void saveMovieInfo(){
         var movieInfo = new MovieInfo(null, "Batman Begins1",
                         2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));

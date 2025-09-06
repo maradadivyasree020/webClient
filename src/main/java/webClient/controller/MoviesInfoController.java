@@ -1,10 +1,12 @@
 package webClient.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import webClient.domain.MovieInfo;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/v1")
+@Slf4j
 public class MoviesInfoController {
 
     private MoviesInfoService moviesInfoService;
@@ -31,7 +34,14 @@ public class MoviesInfoController {
     }
 
     @GetMapping("/movieinfos")
-    public Flux<MovieInfo> getAllMovieInfos() {
+    public Flux<MovieInfo> getAllMovieInfos(@RequestParam (value = "year" , required = false) Integer year,@RequestParam(value="name",required = false) String name) {
+        log.info("Year is {}",year);
+        log.info("Name is {}", name);
+        if(year != null)
+        return moviesInfoService.getMovieInfoFindByYear(year);
+        else if(name != null)
+        return moviesInfoService.getMovieInfoFindByName(name);
+        else
         return moviesInfoService.getAllMovieInfos();
     }
     
